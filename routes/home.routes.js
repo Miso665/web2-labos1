@@ -15,7 +15,7 @@ const config = {
     authRequired: false,
     auth0Logout: true,
     secret: 'nesto jako tajno onak bas spooky',
-    baseURL: 'http://localhost:8080',
+    baseURL: externalUrl || `http://localhost:${port}`,
     clientID: 'jsaZ3Mj572s9rm6KIDBzuX62CcfzDahf',
     issuerBaseURL: 'https://dev-h3vlq311.eu.auth0.com'
   };
