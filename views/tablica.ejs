@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body class="centered">
+    <div class="header">
+        <% if (user !== undefined) { %>
+            <div>Prijavljeni ste kao: <%= user.email %></div>
+        <% } %>
+        <br/>
+        <div>
+            <div>
+                <a href="/">
+                    <button class="button">Početna</button>
+                </a>
+                <a href="/utakmice">
+                    <button class="button">Utakmice</button>
+                </a>
+                <a href="/tablica">
+                    <button class="button">Tablica</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <table class="styled-table centered" style="text-align: center;" id="myTable">
+        <thead>
+            <tr>
+                <th>Naziv tima</th>
+                <th>Broj pobjeda</th>
+                <th>Broj poraza</th>
+                <th>Broj remija</th>
+                <th>Gol razlika</th>
+                <th>Odigrane utakmice</th>
+                <th>Bodovi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let tim of timovi) { %>
+                <tr>
+                    <td style="font-weight: bold;"><%= tim.naziv_tima %></td>
+                    <td><%= tim.broj_pobjeda %></td>
+                    <td><%= tim.broj_poraza %></td>
+                    <td><%= tim.broj_remija %></td>
+                    <td><%= tim.gol_razlika %></td>
+                    <td><%= tim.odigrani_mecevi %></td>
+                    <td style="font-weight: bold;"><%= tim.bodovi %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    </br>
+</body>
+
+</html>

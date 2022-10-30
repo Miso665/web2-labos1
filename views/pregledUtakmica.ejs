@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/main.css">
+    <script src="/main.js"></script>
+</head>
+
+<body class="centered">
+    <div class="header">
+        <% if (user !== undefined) { %>
+            <div>Prijavljeni ste kao: <%= user.email %></div>
+        <% } %>
+        <br/>
+        <div>
+            <a href="/">
+                <button class="button">Početna</button>
+            </a>
+            <a href="/utakmice">
+                <button class="button">Utakmice</button>
+            </a>
+            <a href="/tablica">
+                <button class="button">Tablica</button>
+            </a>
+        </div>
+
+    </div>
+    
+    <br>
+    <br>
+    <table class="styled-table centered" style="text-align: center;" id="myTable">
+        <thead>
+            <tr>
+                <th>Prvi tim</th>
+                <th>Rezultat</th>
+                <th>Drugi tim</th>
+                <th>Vrijeme utakmice</th>
+                <th>Komentari</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let utakmica of utakmice) { %>
+                <tr>
+                    <td><%= utakmica.naziv_tima1 %></td>
+                    <td><%= utakmica.gol1 %> - <%= utakmica.gol2 %></td>
+                    <td><%= utakmica.naziv_tima2 %></td>
+                    <td><%= utakmica.datum_utakmice %></td>
+                    <td><%= utakmica.broj_komentara %></td>
+                    <td><a href="/utakmica/<%= utakmica.id_utakmice %>">Idi na</a></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    </br>
+</body>
+
+</html>

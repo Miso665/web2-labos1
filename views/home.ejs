@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Football manager</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Mihael Cugovčan" />
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+
+<body class="centered">
+    <div class="header">
+        <% if (user !== undefined) { %>
+            <div>Prijavljeni ste kao: <%= user.email %></div>
+        <% } %>
+        <h1 style="text-align: center; font-family: Arial, Helvetica, sans-serif">Football manager</h1>
+        <div>
+        
+    </div>
+    <div>
+        <a href="/">
+            <button class="button">Početna</button>
+        </a>
+        <a href="/utakmice">
+            <button class="button">Utakmice</button>
+        </a>
+        <a href="/tablica">
+            <button class="button">Tablica</button>
+        </a>
+        <% if (user === undefined) { %>
+            <a href="/login">
+                <button class="button">Prijava</button>
+            </a>
+        <% } else { %>
+            <a href="/logout">
+                <button class="button">Odjava</button>
+            </a>
+        <% } %>
+        
+    </div>
+        
+    </div>
+    <div style="background-color: #e1e1e1;">
+        <br />
+        <br />
+        <section class="readme-naslov">
+            Dobrodošli na stranicu za pregled utakmica iz prve 1. Hrvatske nogometne lige
+            **Rezultati su nasumični**
+            <br/>
+            <br/>
+            <div>Na stranici je moguće:</div>
+        </section>
+        </br>
+        <section class="readme">
+            <div>Pregled utakmica</div>
+            <div>Pregled trenutnog stanja tablice</div>
+            <div>Pregled komentara vezanih uz pojedinu utakmicu</div>
+            <div>Prijava i odjava putem Auth0</div>
+            <div>Dodavanje komentara vezanih uz utakmicu (prijavljeni korisnik)</div>
+            <div>Izmjena i brisanje komentara (samo vlastitih)</div>
+            <div>Administrator ima mogućnost izmjene i brisanja svih komentara te dodavanje i mijenjanje rezultata utakmice</div>
+        </section>
+    </div>
+    <div class="footer">
+        <p style="font-family: Arial, Helvetica, sans-serif;">Creative Commons BY-SA</p>
+        <p style="font-family: Arial, Helvetica, sans-serif; font-size: smaller;">FER 2022</p>
+    </div>
+</body>
+
+</html>

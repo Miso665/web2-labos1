@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/main.css">
+    <script src="/main.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="centered">
+    <div class="header">
+        <% if (user !== undefined) { %>
+            <div>Prijavljeni ste kao: <%= user.email %></div>
+            <input id="user_email" value="<%= user.email %>" hidden></input>
+        <% } %>
+        <br/>
+        <div>
+            <div>
+                <a href="/">
+                    <button class="button">Početna</button>
+                </a>
+                <a href="/utakmice">
+                    <button class="button">Utakmice</button>
+                </a>
+                <a href="/tablica">
+                    <button class="button">Tablica</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <input id="id_utakmice" value="<%= utakmica1.id_utakmice %>" hidden></div>
+    <table class="styled-table centered" style="text-align: center;" id="myTable">
+        <thead>
+            <tr>
+                <th>Prvi tim</th>
+                <th>Rezultat</th>
+                <th>Drugi tim</th>
+                <th>Vrijeme utakmice</th>
+                <th>Broj komentara</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td><%= utakmica1.naziv_tima1 %></td>
+                    <td><%= utakmica1.gol1 %> - <%= utakmica1.gol2 %></td>
+                    <td><%= utakmica1.naziv_tima2 %></td>
+                    <td><%= utakmica1.datum_utakmice %></td>
+                    <td><%= utakmica1.broj_komentara %></td>
+                </tr>
+        </tbody>
+    </table>
+    <br>
+    <% if (user) { %>
+        <% if (admin) { %>
+            <button class="button centered" onclick="addRezultat()">Promijeni rezultat</button>
+        <% } %>
+        <button class="button centered" onclick="newKomentar()">Dodaj komentar</button>
+    <% } %>
+    <br/>
+    <br/>
+    <% if (komentari.length !== 0) { %>
+    <table class="styled-table centered" style="text-align: center;" id="myTable">
+        <thead>
+            <tr>
+                <th>Osoba</th>
+                <th>Tekst</th>
+                <th>Vrijeme</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let komentar of komentari) { %>
+                <tr>
+                    <td><%= komentar.email %></td>
+                    <td><%= komentar.tekst %></td>
+                    <td><%= komentar.vrijeme %></td>
+                    <td>
+                    <% if (user) { %>
+                        <% if (admin || komentar.email === user.email) { %>
+                            <button onclick="editKomentar('<%= komentar.id_komentara %>', '<%= komentar.tekst %>', '<%= komentar.email %>')">Uredi</button>
+                            <button onclick="removeKomentar('<%= komentar.id_komentara %>', '<%= komentar.email %>')">Obriši</button>
+                        <% } %>
+                    <% } %>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <% } else { %>
+        <section class="readme">Nema komentara na utakmicu!</section>
+    <% } %>
+    </br>
+</body>
+
+</html>
