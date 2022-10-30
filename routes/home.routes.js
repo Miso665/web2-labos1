@@ -8,6 +8,7 @@ const { requiresAuth } = require('express-openid-connect');
 const { auth } = require('express-openid-connect');
 const moment = require("moment-timezone");
 
+const externalUrl = process.env.RENDER_EXTERNAL_URL;
 
 const adminEmail = "supermail@mailinator.com"
 
@@ -15,7 +16,7 @@ const config = {
     authRequired: false,
     auth0Logout: true,
     secret: 'nesto jako tajno onak bas spooky',
-    baseURL: externalUrl || `http://localhost:${port}`,
+    baseURL: externalUrl || `http://localhost:8080`,
     clientID: 'jsaZ3Mj572s9rm6KIDBzuX62CcfzDahf',
     issuerBaseURL: 'https://dev-h3vlq311.eu.auth0.com'
   };
