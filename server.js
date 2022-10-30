@@ -12,12 +12,8 @@ const externalUrl = process.env.RENDER_EXTERNAL_URL;
 const port = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 8080;
 
 
-
-
 const routers = {
-    '/auth': require('./routes/auth.routes'),
-    '/': require('./routes/home.routes'),
-    '/komentar': require('./routes/komentar.routes')
+    '/': require('./routes/home.routes')
 }
 
 app.use(express.json());
@@ -31,21 +27,6 @@ for (const path in routers) {
     app.use(path, routers[path]);
 }
 
-/*app.get("/", (req, res) => {
-    if (req.oidc.user) {
-        res.render("home",
-        {
-            title: "home",
-            user: (req.oidc.user)
-        });
-    } else {
-        res.render("home",
-        {
-            title: "home"
-        });
-    }
-    
-});*/
 
 if (externalUrl) {
     const hostname = '127.0.0.1';

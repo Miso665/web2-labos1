@@ -9,6 +9,8 @@ const { auth } = require('express-openid-connect');
 const moment = require("moment-timezone");
 
 
+const adminEmail = "supermail@mailinator.com"
+
 const config = {
     authRequired: false,
     auth0Logout: true,
@@ -20,9 +22,6 @@ const config = {
 
 router.use(auth(config));
 
-
-
-
 router.get("/utakmice", async (req, res) => {
     try {
         const results = await Utakmica.getAll();
@@ -31,7 +30,7 @@ router.get("/utakmice", async (req, res) => {
             title: "pregledUtakmica",
             utakmice: results,
             user: req.oidc.user,
-            admin: (req.oidc.user && req.oidc.user.email === "adminko@admin.com") ? true : false
+            admin: (req.oidc.user && req.oidc.user.email === adminEmail) ? true : false
     })
 
     } catch (err) {
@@ -49,14 +48,13 @@ router.get("/utakmica/:idUtakmice", async (req, res) => {
         const { idUtakmice } = req.params;
         const results = await Utakmica.getUtakmica(idUtakmice);
         const results2 = await Komentar.getAll(idUtakmice);
-        console.log(results[0])
         res.render("utakmica",
         {
             title: "utakmica",
             utakmica1: results[0],
             komentari: results2,
             user: req.oidc.user,
-            admin: (req.oidc.user && req.oidc.user.email === "adminko@admin.com") ? true : false
+            admin: (req.oidc.user && req.oidc.user.email === adminEmail) ? true : false
     })
 
     } catch (err) {
@@ -67,7 +65,7 @@ router.get("/utakmica/:idUtakmice", async (req, res) => {
 
 router.post("/utakmica/edit", async (req, res) => {
     try {
-        if (req.oidc.user && req.oidc.user.email === "adminko@admin.com") {
+        if (req.oidc.user && req.oidc.user.email === adminEmail) {
             const { id_utakmice, gol1, gol2 } = req.body;
             let rezultat = 0
             if (gol1 > gol2) rezultat = 1
@@ -141,7 +139,7 @@ router.get("/tablica", async (req, res) => {
             title: "tablica",
             timovi: timovi,
             user: req.oidc.user,
-            admin: (req.oidc.user && req.oidc.user.email === "adminko@admin.com") ? true : false
+            admin: (req.oidc.user && req.oidc.user.email === adminEmail) ? true : false
     })
 
     } catch (err) {
@@ -184,11 +182,10 @@ router.post("/komentar/add", async (req, res) => {
 router.post("/komentar/edit", async (req, res) => {
     try {
         const { id_komentara, tekst, email } = req.body;
-        if (req.oidc.user && (req.oidc.user.email === email || req.oidc.user.email === "adminko@admin.com")) {
+        if (req.oidc.user && (req.oidc.user.email === email || req.oidc.user.email === adminEmail)) {
             const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const vrijeme = moment().tz(zona).format();
             const results = await Komentar.update(id_komentara, tekst, vrijeme)
-            console.log(id_komentara)
             res.status(200);
             return res.json(results);
         } else {
@@ -206,7 +203,7 @@ router.post("/komentar/edit", async (req, res) => {
 router.post("/komentar/delete/:idKomentara", async (req, res) => {
     try {
         const { email } = req.body;
-        if (req.oidc.user && (req.oidc.user.email === email || req.oidc.user.email === "adminko@admin.com")) {
+        if (req.oidc.user && (req.oidc.user.email === email || req.oidc.user.email === adminEmail)) {
             const { idKomentara } = req.params;
             const results = await Komentar.delete(idKomentara);
             res.status(200);
@@ -225,7 +222,7 @@ router.get("/", (req, res) => {
         {
             title: "home",
             user: req.oidc.user,
-            admin: (req.oidc.user && req.oidc.user.email === "adminko@admin.com") ? true : false
+            admin: (req.oidc.user && req.oidc.user.email === adminEmail) ? true : false
         });
     
 });

@@ -5,15 +5,17 @@ function addRezultat() {
     } else {
         console.log(document.getElementById("id_utakmice").value)
         const helper = rezultat.split("-");
-        axios.post(window.location.protocol + "/utakmica/edit", {
-            id_utakmice: parseInt(document.getElementById("id_utakmice").value),
-            gol1: parseInt(helper[0]),
-            gol2: parseInt(helper[1])
-        })
-        .then((response) => window.location.reload())
-        .catch((err) => window.location.href = "/login");
-
-        //updateUtakmica(parseInt(helper[0]), parseInt(helper[1]));
+        if (Number.isInteger(parseInt(helper[0])) && Number.isInteger(parseInt(helper[1]))) {
+            axios.post(window.location.protocol + "/utakmica/edit", {
+                id_utakmice: parseInt(document.getElementById("id_utakmice").value),
+                gol1: parseInt(helper[0]),
+                gol2: parseInt(helper[1])
+            })
+            .then((response) => window.location.reload())
+            .catch((err) => window.location.href = "/login")
+        } else {
+            alert("Rezultat mora biti broj!")
+        }
     }
 }
 
