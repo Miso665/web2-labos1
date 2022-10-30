@@ -219,6 +219,10 @@ router.post("/komentar/delete/:idKomentara", async (req, res) => {
     }
 });
 
+router.get("/callback", (req, res) => {
+    res.redirect("/");
+})
+
 router.get("/", (req, res) => {
     res.render("home",
         {
